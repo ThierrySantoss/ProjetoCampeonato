@@ -1,17 +1,17 @@
 package programacao1;
 
-public class Atleta {
-	
+public class Atleta implements MinhaCategoria {
+
 	private String nome;
 	private int idade;
 	private Categoria categoria;
 	private int id;
+	private String sexo;
 
-
-	public Atleta(String nome, int idade) {
+	public Atleta(String nome, int idade, String sexo) {
 		this.nome = nome;
 		this.idade = idade;
-		this.categoria = Categoria.definirCategoria(idade);
+		this.sexo = sexo;
 	}
 
 	public String getNome() {
@@ -33,11 +33,11 @@ public class Atleta {
 	public Categoria getCategoria() {
 		return categoria;
 	}
-	
+
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -84,9 +84,34 @@ public class Atleta {
 	public String toString() {
 		return "Atleta: " + nome + ", Idade: " + idade + " anos, Categoria: " + categoria + ", Id: " + id;
 	}
-	
-	
-	
-	
+
+	@Override
+	public Atleta definirPorIdade() {
+		if (this.idade < 5) {
+			this.categoria = null;
+		} else if (this.idade >= 5 && this.idade < 10) {
+			this.categoria = Categoria.INFANTIU;
+		} else if (this.idade >= 10 && this.idade < 15) {
+			this.categoria = Categoria.JUVENIL;
+		} else if (this.idade >= 15 && this.idade < 18) {
+			this.categoria = Categoria.AMADOR;
+		} else if (this.idade >= 18 && this.idade < 50) {
+			this.categoria = Categoria.PROFISSIONAL;
+		} else {
+			this.categoria = Categoria.APOSENTADO;
+		}
+		return this;
+
+	}
+
+	@Override
+	public Atleta definirPorSexo() {
+		if (this.sexo.equalsIgnoreCase(Categoria.FEMININO.name())) {
+			this.categoria = Categoria.FEMININO;
+		} else if (this.sexo.equalsIgnoreCase(Categoria.MASCULINO.name())) {
+			this.categoria = Categoria.MASCULINO;
+		}
+		return this;
+	}
 
 }
